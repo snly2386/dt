@@ -1,0 +1,14 @@
+#super user permissions needed for docker
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t snly2386/dt -f Dockerfile.dev . 
+
+# it will run this and assume it failed if it doesnt get status code 0
+
+script:
+  # need the coverage extension to exit the tests - travis assumes all tests will kill itself
+  - docker run snly2386/dt npm run test -- --coverage
+  
