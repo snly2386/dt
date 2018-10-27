@@ -1,9 +1,9 @@
 # can tag from as alias for different phases
 FROM node:alpine as builder
 WORKDIR /app
-COPY package.json .
+COPY ./package.json ./
 RUN npm install
-COPY . .
+COPY ./ ./
 RUN npm run build
 
 #run phase - a second from statement will start up new phase
