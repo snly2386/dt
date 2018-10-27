@@ -11,4 +11,23 @@ before_install:
 script:
   # need the coverage extension to exit the tests - travis assumes all tests will kill itself
   - docker run snly2386/dt npm run test -- --coverage
-  
+
+deploy:
+  # travisci preconfigured to use a lot of hosting services
+  provider: elasticbeanstalk
+  #beanstalk region
+  region: "us-east-1"
+  #beanstalk app name
+  app: "docker-react"
+  #beanstalk env name
+  env: "DockerReact-env"
+  #travis zips up all files and sends them to s3 bucket - whch then lets beanstalk know its ready.
+  bucket_name: "elasticbeanstalk-us-east-1-311342128241"
+  bucket_path: "docker-react"
+  on: 
+    branch: master
+  access_key_id: $AWS_ACCESS_ID
+  secret_access_key:
+    secure: "$AWS_SECRET_ACCESS_KEY"
+
+    
